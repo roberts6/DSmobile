@@ -1,38 +1,66 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 
-const JugadorDetalle = ({ route }) => {
-  const { jugador } = route.params;
+const JugadorDetalle = ({ jugador, setJugadorSeleccionado }) => {
+    const fechaNacimiento = new Date(jugador.dob.date).toLocaleDateString('en-GB');
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Image source={{ uri: jugador.avatar_url }} style={styles.image} />
-      <Text style={styles.title}>{jugador.login}</Text>
-      <Text style={styles.detail}>ID: {jugador.id.toString()}</Text>
-      <Text style={styles.detail}>Perfil URL: {jugador.html_url}</Text>
-    </ScrollView>
-  );
+    const handleBackToJugadores = () => {
+        setJugadorSeleccionado(null);
+        // <NativeRouter>
+        //     <Routes>
+        //         <Route path="/Jugadores" element={<Jugadores />}></Route>
+        //     </Routes>
+        // </NativeRouter>
+    };
+
+    return (
+        <View style={styles.card}>
+            <View style={styles.card}>
+                <Image source={{ uri: jugador.picture.thumbnail }} style={styles.image} />
+                <Text style={styles.title}>{`${jugador.name.title} ${jugador.name.first} ${jugador.name.last}`}</Text>
+                <Text style={styles.text}>Género: {jugador.gender}</Text>
+                <Text style={styles.text}>Edad: {jugador.dob.age}</Text>
+                <Text style={styles.text}>Fecha de nacimiento: {fechaNacimiento}</Text>
+                <Text style={styles.text}>ID: {jugador.id.value}</Text>
+                <Text style={styles.text}>Email: {jugador.email}</Text>
+            </View>
+            <Pressable onPress={handleBackToJugadores} style={styles.backButton}>
+                <Text style={styles.backButtonText}>Volver a Jugadores</Text>
+            </Pressable>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    padding: 20,
-  },
-  image: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  detail: {
-    fontSize: 16,
-    marginVertical: 4,
-  },
+    card: {
+        backgroundColor: 'white',
+        marginVertical: 10,
+        marginHorizontal: 15,
+        padding: 10,
+        borderRadius: 25,
+        flex: 1,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 25,
+    },
+    image: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 20,
+        alignSelf: 'center',
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'black',
+        textAlign: 'center',
+    },
+    text: {
+        color: 'black',
+        fontSize: 13,
+        marginTop: 10
+    },
 });
 
 export default JugadorDetalle;

@@ -10,24 +10,14 @@ import Arbitro from './views/Arbitro';
 import Jugadores from './views/Jugadores';
 import Federacion from './views/Federacion';
 import JugadoresCard from './views/JugadoresCard';
-// import JugadorDetalle from './views/JugadorDetalle';
+import JugadorDetalle from './views/JugadorDetalle';
+import {useState} from 'react'
 
 const Main = () => {
     const { width, height } = Dimensions.get('window');
+    const [jugadorSeleccionado, setJugadorSeleccionado] = useState(null);
 
-    // const Stack = createStackNavigator()
-
-    // return (
-    //     <NavigationContainer>
-    //         <Stack.Navigator>
-    //             <Stack.Screen name="Arbitro" component={Arbitro} />
-    //             <Stack.Screen name="Entrenador" component={Entrenador} />
-    //             <Stack.Screen name="Federacion" component={Federacion} />
-    //             <Stack.Screen name="Jugadores" component={JugadoresCard} />
-    //             <Stack.Screen name="JugadorDetalle" component={JugadorDetalle} />
-    //         </Stack.Navigator>
-    //     </NavigationContainer>
-    // );
+    
     return (
         <NativeRouter>
             <View style={styles.container(width, height)}>
@@ -37,9 +27,9 @@ const Main = () => {
                     <Route path="/" element={<Jugadores />} /> 
                     <Route path="/Entrenador" element={<Entrenador />} />
                     <Route path="/Arbitro" element={<Arbitro />} />
-                    <Route path="/Jugadores" element={<Jugadores />} />
+                    <Route path="/Jugador" element={<JugadorDetalle />} />
                     <Route path="/Federacion" element={<Federacion />} />
-                    <Route path="/Jugadores" element={<JugadoresCard />} />
+                    <Route path="/Jugadores" element={<JugadorDetalle setJugadorSeleccionado={setJugadorSeleccionado} />} />
                 </Routes>              
             </View>
         </NativeRouter>
